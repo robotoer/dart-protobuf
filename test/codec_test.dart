@@ -21,7 +21,7 @@ void main() {
   convertToBytes(fieldType) => (value) {
     var writer = new CodedBufferWriter()..writeField(0, fieldType, value);
     return writer.toBuffer().sublist(1);
-  }
+  };
 
   final int32ToBytes = convertToBytes(GeneratedMessage.O3);
 

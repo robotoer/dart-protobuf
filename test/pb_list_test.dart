@@ -8,7 +8,17 @@ library pb_list_tests;
 import 'package:protobuf/protobuf.dart';
 import 'package:unittest/unittest.dart';
 
-import 'test_util.dart';
+class _TypeError extends TypeMatcher {
+  const _TypeError() : super("TypeError");
+  bool matches(item, MatchState matchState) => item is TypeError;
+}
+
+/** A matcher for TypeErrors. */
+const isTypeError = const _TypeError();
+
+/** A matcher for functions that throw TypeError. */
+const Matcher throwsTypeError =
+    const Throws(isTypeError);
 
 void main() {
   test('testPbList', () {
@@ -63,7 +73,7 @@ void main() {
     lb2.removeRange(5, 8);
     expect(lb2, [1, 2, 3, 9, 8, 9]);
 
-    expect(() { new PbList<int>().add('hello'); }, throwsArgumentError);
+    expect(() { new PbList<int>().add('hello'); }, throwsTypeError);
 
     PbSint32List listSint32 = new PbSint32List();
 
